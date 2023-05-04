@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
-function Fetch() {
-  const [imageUrl, setImageUrl] = useState('');
+export default function Fetch (){
+  const [images, setImageUrl] = useState('');
 
-  useEffect(() => {
-    const fetchDogImage = async () => {
+    async function getDogData () {
       try {
-        const response = await fetch('https://dog.ceo/api/breeds/image/random');
-        const data = await response.json();
-        setImageUrl(data.message);
+        const response = await axios.get('https://dog.ceo/api/breeds/image/random');
+        
+        setImages(response.data.message);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
-    fetchDogImage();
-  }, []);
+    useEffect(() =>{
+        getDogData();
+    },[])
+  
 
   return (
     <div>
-      <img src={imageUrl} alt="Random dog" />
+      <img className="Dog" src={image} alt="dog" />
     </div>
   );
 }
 
-export default Fetch;
+
+
